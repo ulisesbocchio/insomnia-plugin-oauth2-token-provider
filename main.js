@@ -1,3 +1,6 @@
+// For help writing plugins, visit the documentation to get started:
+//   https://support.insomnia.rest/article/26-plugins
+
 const defaultTokenSuffix = '/oauth2/v2.0/token';
 
 const storage = {
