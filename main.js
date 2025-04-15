@@ -1,6 +1,3 @@
-// For help writing plugins, visit the documentation to get started:
-//   https://support.insomnia.rest/article/26-plugins
-
 const defaultTokenSuffix = '/oauth2/v2.0/token';
 
 const storage = {
@@ -24,13 +21,13 @@ const tokenTag = {
     }
 }
 
-const tokenHook = function (arg) {
+const tokenHook = async function (arg) {
     const requestURI = new URL(arg.request.getUrl())
     const environment = arg.request.getEnvironment()
 
     if (requestURI.href.endsWith(environment.oauth2_token_url_suffix || defaultTokenSuffix)) {
 
-        const data = JSON.parse(arg.response.getBody().toString('utf-8'))
+        const data = JSON.parse((await arg.response.getBody()).toString('utf-8'))
 
         if (typeof data.access_token !== 'undefined') {
             storage.setToken(environment, data.access_token);
